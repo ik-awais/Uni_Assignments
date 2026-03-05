@@ -77,7 +77,7 @@ void calculateDisplayPayroll(HR *ptr, float extra){
     }
     cout << fixed << setprecision(2);
     cout << "\nEmployee Name: " << ptr->employeeName << endl;
-    cout << "Job Title " << ptr->jobTitle << endl;
+    cout << "Job Title: " << ptr->jobTitle << endl;
     cout << "Employee Code: " << ptr->employeeCode << endl;
     cout << "All Monthly Salaries: ";
     for(int i = 0; i < ptr->monthCount; i++)
