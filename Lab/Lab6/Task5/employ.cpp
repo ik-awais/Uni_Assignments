@@ -7,8 +7,10 @@ void Employee::inputData(){
     cout << "Enter name: ";
     cin >> name;
     cout << "Enter Employee ID: ";
+    cin.ignore();
     cin >> employee_ID;
     cout << "Enter base salary: ";
+    cin.ignore();
     cin >> base_salary;
 }
 float Employee::calculateBonus(){

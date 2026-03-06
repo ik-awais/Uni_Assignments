@@ -11,7 +11,5 @@ int main(){
     r2.inputData();
     r2.displayResult();
     cout << "Average marks: " << r2.calculateAverage() << endl;
-    
-
     return 0;
 }

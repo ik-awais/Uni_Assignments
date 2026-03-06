@@ -5,12 +5,15 @@ using namespace std;
 
 void Result::inputData(){
     cout << "Enter name: ";
+    cin.ignore();
     cin >> name;
     cout << "Enter roll no: ";
+    cin.ignore();
     cin >> roll_no;
     cout << "Enter marks of 5 subjects: ";
     for (int i = 0; i < 5; i++)
     {
+        cin.ignore();
         cin >> marks[i];
         if(marks[i] < 0 || marks[i] > 100)
         {
