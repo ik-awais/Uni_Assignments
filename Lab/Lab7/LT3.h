@@ -1,7 +1,6 @@
 #include <iostream>
 #include <iomanip>
 using namespace std;
-
 class Employee{
     string name, ID;
     float salary;

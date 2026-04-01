@@ -1,11 +1,10 @@
 #include <iostream>
 #include <iomanip>
 using namespace std;
-
 class Student{
     string name, rollNo;
     int marks;
-    public:
+public:
     Student();
     Student(string n, string rN, int m);
     void Display();
@@ -21,14 +20,14 @@ Student::Student(string n, string rN, int m){
     marks = m;
 }
 void Student::Display(){
-cout << name << "\n" << rollNo << "\n" << marks << endl;
+    cout << "Name: " << name << "\n" << "Roll No: " << rollNo << "\n" << "Marks: " << marks << endl;
 }
 int main(){
     Student s1;
-    cout << "Data of Student 1" << endl;
+    cout << "\nData of Student 1" << endl;
     s1.Display();
     Student s2("Awais", "25P-0011", 90);
-    cout << "Data of Student 2" << endl;
+    cout << "\nData of Student 2" << endl;
     s2.Display();
     return 0;
 }

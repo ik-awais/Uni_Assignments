@@ -8,6 +8,6 @@ int main(){
     cout << "\nEmployee 2 info: \n";
     e2.Display();
     Employee e3(e2);
-    cout << "\nEmployee 3 info: \n";
+    cout << "\nEmployee 3 info(Copy Constructor): \n";
     e3.Display();
 }
