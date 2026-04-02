@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Silent Patient: Story Sequence</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Josefin+Sans:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════
+   ROOT & RESET
+══════════════════════════════════════════════ */
+:root {
+  --black:   #060606;
+  --red:     #8b0000;
+  --crimson: #b52020;
+  --gold:    #c9a84c;
+  --gold-lt: #e8cc7a;
+  --ivory:   #ede8dc;
+
+  /* ── Uniform type scale ──────────────────────
+     All font sizes use viewport-relative clamp()
+     so one zoom level looks consistent on every slide.
+     Base is 100vw at a 1280 px reference width.
+  ─────────────────────────────────────────────── */
+  --fs-label:  clamp(.55rem, .9vw,  .7rem);
+  --fs-tag:    clamp(.75rem, 1.1vw, .88rem);
+  --fs-body:   clamp(.88rem, 1.4vw, 1rem);
+  --fs-pull:   clamp(.9rem,  1.5vw, 1.08rem);
+  --fs-h2:     clamp(1.1rem, 2.2vw, 1.65rem);
+  --fs-h1:     clamp(1.8rem, 4.5vw, 3.6rem);
+  --fs-author: clamp(.58rem, .9vw,  .75rem);
+
+  --pad-x: 5.5vw;
+  --pad-b: 4.5vh;
+  --content-w: 620px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html, body {
+  width:100vw; height:100vh;
+  overflow:hidden;
+  background:var(--black);
+  font-family:'EB Garamond', Georgia, serif;
+  color:var(--ivory);
+  cursor:default;
+}
+
+/* Grain overlay */
+body::after {
+  content:'';
+  position:fixed; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none; z-index:9000; mix-blend-mode:overlay;
+}
+
+/* Progress bar */
+#progress {
+  position:fixed; top:0; left:0; height:3px;
+  background:linear-gradient(90deg, var(--red), var(--crimson), var(--gold));
+  z-index:8000; transition:width .6s ease;
+}
+
+/* ══════════════════════════════════════════════
+   SLIDES
+══════════════════════════════════════════════ */
+.slide {
+  position:fixed; inset:0;
+  display:flex; flex-direction:column;
+  justify-content:center;   /* vertically centred */
+  align-items:flex-start;   /* left-aligned by default */
+  opacity:0; pointer-events:none;
+  transition:opacity .9s ease, transform .9s ease;
+  transform:scale(1.03);
+  will-change:opacity,transform;
+  overflow:hidden;
+}
+.slide.active  { opacity:1; pointer-events:all; transform:scale(1); }
+.slide.exit    { opacity:0; transform:scale(.97); }
+
+/* Full-bleed background */
+.slide-bg {
+  position:absolute; inset:0;
+  background-size:cover; background-position:center; background-repeat:no-repeat;
+  z-index:0; transition:transform 8s ease; transform:scale(1.06);
+}
+.slide.active .slide-bg { transform:scale(1); }
+
+/* Scrims: full coverage so text is always readable regardless of position */
+.scrim {
+  position:absolute; inset:0; z-index:1;
+  background:rgba(4,2,2,0.60);
+}
+.scrim-left {
+  position:absolute; inset:0; z-index:1;
+  background:linear-gradient(
+    100deg,
+    rgba(4,2,2,0.90) 0%,
+    rgba(4,2,2,0.75) 40%,
+    rgba(4,2,2,0.45) 65%,
+    rgba(4,2,2,0.20) 100%
+  );
+}
+
+/* ── Content box ── */
+.slide-content {
+  position:relative; z-index:2;
+  padding: 7vh var(--pad-x);
+  max-width:var(--content-w);
+  width:100%;
+}
+/* Centred variant (title slide, epilogue) */
+.slide-content.centered {
+  max-width:760px;
+  width:100%;
+  text-align:center;
+  align-self:center;
+  padding: 7vh 5vw;
+  display:flex; flex-direction:column; align-items:center;
+}
+
+/* ══════════════════════════════════════════════
+   TYPOGRAPHY - all using CSS variables
+══════════════════════════════════════════════ */
+.label {
+  font-family:'Josefin Sans', sans-serif;
+  font-size:var(--fs-label);
+  letter-spacing:.45em; text-transform:uppercase;
+  color:var(--gold); opacity:.8; margin-bottom:.5rem;
+}
+
+.rule {
+  width:48px; height:1px;
+  background:linear-gradient(90deg, var(--crimson), transparent);
+  margin:.6rem 0;
+}
+.rule.center { margin:.6rem auto; background:linear-gradient(90deg, transparent, var(--crimson), transparent); }
+
+h1 {
+  font-family:'Cinzel Decorative', serif;
+  font-size:var(--fs-h1);
+  font-weight:900; line-height:1.06; color:#fff;
+  text-shadow:0 2px 24px rgba(0,0,0,.9), 0 0 80px rgba(139,0,0,.35);
+  letter-spacing:.02em;
+}
+h1 em { color:var(--crimson); font-style:normal; }
+
+h2 {
+  font-family:'Cinzel', serif;
+  font-size:var(--fs-h2);
+  font-weight:700; color:var(--gold-lt); line-height:1.2;
+  letter-spacing:.04em; text-shadow:0 2px 12px rgba(0,0,0,.8);
+  margin-bottom:.4rem;
+}
+
+.tagline {
+  font-family:'EB Garamond', serif;
+  font-style:italic;
+  font-size:var(--fs-pull);
+  color:var(--ivory); opacity:.7; margin-top:.5rem; letter-spacing:.03em;
+}
+
+/* ── Bullets ── */
+.bullets { list-style:none; margin-top:.9rem; }
+.bullets li {
+  font-size:var(--fs-body); line-height:1.55; color:var(--ivory); opacity:.93;
+  padding:.35rem 0 .35rem 1.4rem; position:relative;
+  border-bottom:1px solid rgba(201,168,76,.1);
+}
+.bullets li:last-child { border-bottom:none; }
+.bullets li::before {
+  content:''; position:absolute; left:0; top:50%; transform:translateY(-50%);
+  width:5px; height:5px; border-radius:50%; background:var(--crimson);
+  box-shadow:0 0 6px rgba(181,32,32,.7);
+}
+.bullets li strong { color:var(--gold-lt); font-weight:600; }
+
+/* ── Pull quote ── */
+.pull-quote {
+  font-family:'EB Garamond', serif; font-style:italic;
+  font-size:var(--fs-pull); color:var(--gold-lt);
+  border-left:2px solid var(--crimson); padding:.4rem .9rem;
+  margin-top:1rem; line-height:1.6; opacity:.9;
+}
+
+/* ── Author byline ── */
+.author {
+  font-family:'Josefin Sans', sans-serif;
+  font-size:var(--fs-author); letter-spacing:.3em; text-transform:uppercase;
+  color:var(--ivory); opacity:.55; margin-top:.9rem;
+}
+
+/* ── Ornament ── */
+.ornament {
+  font-size:1.3rem; color:var(--gold); opacity:.5;
+  display:block; margin:.5rem 0; letter-spacing:.3em;
+}
+
+/* ══════════════════════════════════════════════
+   TIMELINE (Slide 4)
+══════════════════════════════════════════════ */
+.timeline { margin-top:.8rem; padding-left:1.1rem; position:relative; }
+.timeline::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:1px;
+  background:linear-gradient(180deg, var(--crimson), rgba(139,0,0,0));
+}
+.tl-item { margin-bottom:.9rem; padding-left:.9rem; position:relative; }
+.tl-item::before {
+  content:''; position:absolute; left:-.43rem; top:.5rem;
+  width:7px; height:7px; border-radius:50%; background:var(--crimson);
+  box-shadow:0 0 8px rgba(181,32,32,.8);
+}
+.tl-lbl {
+  font-family:'Josefin Sans', sans-serif;
+  font-size:var(--fs-label); letter-spacing:.3em;
+  text-transform:uppercase; color:var(--gold); opacity:.75; margin-bottom:.2rem;
+}
+.tl-text { font-size:var(--fs-body); color:var(--ivory); opacity:.88; line-height:1.5; }
+.tl-text strong { color:var(--gold-lt); }
+
+/* ══════════════════════════════════════════════
+   ALCESTIS FRAME (Slide 8)
+══════════════════════════════════════════════ */
+.alcestis-block {
+  display:grid; grid-template-columns:1fr 1.55fr;
+  gap:1.6rem; align-items:center; margin-top:.8rem;
+}
+.painting-wrapper {
+  border:2px solid rgba(201,168,76,.35); position:relative;
+  overflow:hidden;
+  box-shadow:0 0 40px rgba(139,0,0,.4), inset 0 0 20px rgba(0,0,0,.6);
+  max-height:42vh;
+}
+.painting-wrapper img {
+  width:100%; height:100%; object-fit:cover; display:block;
+  filter:sepia(.25) contrast(1.1) brightness(.85);
+  transition:transform 6s ease;
+}
+.slide.active .painting-wrapper img { transform:scale(1.04); }
+.painting-caption {
+  position:absolute; bottom:0; left:0; right:0;
+  font-family:'Cinzel', serif; font-size:.5rem; letter-spacing:.28em;
+  text-align:center; color:var(--gold); opacity:.6;
+  padding:.35rem; background:rgba(0,0,0,.5); text-transform:uppercase;
+}
+.painting-wrapper::before, .painting-wrapper::after {
+  content:''; position:absolute; width:16px; height:16px;
+  border-color:var(--gold); border-style:solid; opacity:.5; z-index:3;
+}
+.painting-wrapper::before { top:-1px; left:-1px; border-width:2px 0 0 2px; }
+.painting-wrapper::after  { bottom:-1px; right:-1px; border-width:0 2px 2px 0; }
+
+/* ══════════════════════════════════════════════
+   NAV ARROWS
+══════════════════════════════════════════════ */
+.nav-btn {
+  position:fixed; top:50%; transform:translateY(-50%);
+  z-index:7000; background:rgba(8,8,8,.35);
+  border:1px solid rgba(201,168,76,.25); color:var(--gold);
+  width:42px; height:42px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-size:1.1rem; backdrop-filter:blur(6px);
+  transition:background .3s, border-color .3s; user-select:none;
+}
+.nav-btn:hover { background:rgba(139,0,0,.45); border-color:var(--gold); }
+#prev { left:16px; }
+#next { right:16px; }
+
+/* ── Dots ── */
+#dots {
+  position:fixed; bottom:18px; left:50%; transform:translateX(-50%);
+  display:flex; gap:7px; z-index:7000;
+}
+.dot {
+  width:6px; height:6px; border-radius:50%;
+  background:rgba(201,168,76,.25); border:1px solid rgba(201,168,76,.4);
+  cursor:pointer; transition:all .3s;
+}
+.dot.on { background:var(--gold); transform:scale(1.5); }
+
+/* ── Slide number ── */
+#slide-num {
+  position:fixed; bottom:18px; right:22px;
+  font-family:'Josefin Sans', sans-serif;
+  font-size:.58rem; letter-spacing:.25em;
+  color:var(--gold); opacity:.4; z-index:7000;
+}
+
+/* ── Export ── */
+#export-btn {
+  position:fixed; top:16px; right:18px; z-index:7000;
+  font-family:'Josefin Sans', sans-serif;
+  font-size:.55rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--gold); background:rgba(8,8,8,.4);
+  border:1px solid rgba(201,168,76,.3);
+  padding:.5rem 1rem; cursor:pointer; backdrop-filter:blur(8px);
+  transition:background .3s;
+}
+#export-btn:hover { background:rgba(139,0,0,.45); }
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
+@media (max-width:640px) {
+  .slide-content { padding:0 5vw 10vw; }
+  .alcestis-block { grid-template-columns:1fr; }
+}
+
+/* ── Print ── */
+@media print {
+  body { overflow:visible; }
+  .slide {
+    position:relative !important; opacity:1 !important;
+    transform:none !important; pointer-events:all !important;
+    page-break-after:always; height:100vh; display:flex !important;
+  }
+  .slide-bg { transform:none !important; }
+  .nav-btn, #dots, #slide-num, #export-btn, #progress { display:none !important; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<button id="export-btn" onclick="window.print()">↓ Export PDF</button>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 1 · TITLE
+══════════════════════════════════════════════ -->
+<div class="slide active" id="s1" style="align-items:center;">
+  <div class="slide-bg" style="
+    background-image:url('https://images.stockcake.com/public/7/3/0/730c2189-6cec-4ec6-bb8e-0ca917fd0bc6_large/painter-s-dark-obsession-stockcake.jpg');
+  "></div>
+  <div class="scrim"></div>
+  <div class="slide-content centered">
+    <div class="label">Alex Michaelides · 2019</div>
+    <span class="ornament">✦ ✦ ✦</span>
+    <h1>The <em>Silent</em><br>Patient</h1>
+    <div class="rule center"></div>
+    <p class="tagline">"Why does a woman who seemingly has everything<br>suddenly stop speaking?"</p>
+    <p class="author">A Complete Story Sequence</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 2 · PROLOGUE
+     Image: dark crime-scene bedroom / woman found silent
+══════════════════════════════════════════════ -->
+<div class="slide" id="s2">
+  <div class="slide-bg" style="
+    background-image:url('slide2 .jpg');
+    background-position:center top;
+  "></div>
+  <div class="scrim-left"></div>
+  <div class="slide-content">
+    <div class="label">Prologue</div>
+    <h2>The Night of Five Shots</h2>
+    <div class="rule"></div>
+    <ul class="bullets">
+      <li><strong>Alicia Berenson</strong> ties her husband Gabriel to a chair in their studio</li>
+      <li>She fires a gun into his face, <strong>five times</strong>, then falls completely silent</li>
+      <li>Discovered by police, sitting amid the wreckage, <strong>unresponsive</strong></li>
+      <li>Committed indefinitely to <strong>The Grove</strong>, a secure psychiatric unit</li>
+      <li>She never speaks <strong>another word</strong> to anyone, ever again</li>
+      <li>Her sole act of expression: a self-portrait titled <strong>Alcestis</strong></li>
+    </ul>
+    <div class="pull-quote">"She said nothing. And kept saying nothing."</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 3 · EARLY SESSIONS (Ch 1–4)
+     Image: haunted hospital / asylum corridor
+══════════════════════════════════════════════ -->
+<div class="slide" id="s3">
+  <div class="slide-bg" style="
+    background-image:url('slide3.jpg');
+    background-position:center top;
+  "></div>
+  <div class="scrim-left"></div>
+  <div class="slide-content">
+    <div class="label">Part One · Chapters 1–4</div>
+    <h2>Theo Enters The Grove</h2>
+    <div class="rule"></div>
+    <ul class="bullets">
+      <li><strong>Theo Faber</strong>, criminal psychotherapist, is obsessed with Alicia's case</li>
+      <li>He manoeuvres his way into <strong>The Grove</strong> as her new lead therapist</li>
+      <li>Pores over her file, studies the <strong>Alcestis</strong> painting for hidden meaning</li>
+      <li>First sessions: Alicia stares through him: <strong>completely unreachable</strong></li>
+      <li>She finally hands him a <strong>diary</strong>, her only act of communication</li>
+      <li>The diary covers her life, her marriage, and <strong>a growing, unnamed dread</strong></li>
+    </ul>
+    <div class="pull-quote">"She looked through me as though I were made of glass."</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 4 · DIARY TIMELINE
+     Image: Gothic dark-academia scholar, journal & candlelight
+══════════════════════════════════════════════ -->
+<div class="slide" id="s4">
+  <div class="slide-bg" style="
+    background-image:url('slide4.jpg');
+    background-position:right center;
+  "></div>
+  <div class="scrim-left"></div>
+  <div class="slide-content">
+    <div class="label">Alicia's Diary · Pre-Murder Events</div>
+    <h2>A Life Unravelling</h2>
+    <div class="rule"></div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-lbl">A Perfect Beginning</div>
+        <div class="tl-text">Meets <strong>Gabriel</strong>, a fashion photographer. Their marriage feels like rescue from a troubled past.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-lbl">The Childhood Wound</div>
+        <div class="tl-text">Alicia's mother <strong>died by suicide</strong> when Alicia was a child, a wound she never spoke of and never healed.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-lbl">The Stalker Appears</div>
+        <div class="tl-text"><strong>Anonymous notes</strong> arrive. She feels watched. Someone breaks into their home. Fear hardens into paranoia.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-lbl">The Night of the 'Game'</div>
+        <div class="tl-text">Alicia ties Gabriel to a chair; she calls it a game. She picks up a gun. <strong>She fires. Five times.</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 5 · THERAPY ESCALATION (Ch 5–10)
+     Image: dark art studio / decaying room with light
+══════════════════════════════════════════════ -->
+<div class="slide" id="s5">
+  <div class="slide-bg" style="
+    background-image:url('https://images.stockcake.com/public/7/1/5/7153cb33-96ac-4ffa-b9fc-b591d334ccd9_large/light-amid-decay-stockcake.jpg');
+    background-position:center;
+  "></div>
+  <div class="scrim-left"></div>
+  <div class="slide-content">
+    <div class="label">Part One · Chapters 5–10</div>
+    <h2>Escalation &amp; Betrayal</h2>
+    <div class="rule"></div>
+    <ul class="bullets">
+      <li><strong>Art therapy</strong> sessions begin; Alicia paints, still wholly silent</li>
+      <li>Without warning she <strong>attacks Theo</strong> violently during a session</li>
+      <li>Theo scrutinises Grove staff, each one concealing <strong>their own secrets</strong></li>
+      <li>He follows his wife <strong>Kathy</strong> and discovers she is having an affair</li>
+      <li>He does not confront her; he watches, silently, <strong>obsessively</strong></li>
+      <li>The diary reveals the stalker is growing <strong>bolder and more threatening</strong></li>
+    </ul>
+    <div class="pull-quote">"Every marriage has its silences.<br>This one had been weaponised."</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 6 · COLLAPSE & INVESTIGATION (Ch 11–17)
+     Image: veiled gothic mourning figure
+══════════════════════════════════════════════ -->
+<div class="slide" id="s6">
+  <div class="slide-bg" style="
+    background-image:url('slide6 .jpg');
+    background-position:center top;
+  "></div>
+  <div class="scrim-left"></div>
+  <div class="slide-content">
+    <div class="label">Part One · Chapters 11–17</div>
+    <h2>Collapse &amp; Investigation</h2>
+    <div class="rule"></div>
+    <ul class="bullets">
+      <li>Attempted <strong>hypnosis</strong> on Alicia; it fails entirely</li>
+      <li>Theo's own therapy sessions surface <strong>abuse by his father</strong>, his buried wound</li>
+      <li>Alicia suffers a <strong>morphine overdose</strong> and falls into a coma</li>
+      <li>Theo suspects the overdose was <strong>deliberate; someone inside The Grove</strong></li>
+      <li>He investigates each staff member: Yianni, Diomedes, Christian, Stephanie</li>
+      <li>Police <strong>re-open</strong> the Gabriel Berenson murder case</li>
+    </ul>
+    <div class="pull-quote">"Someone wanted her silent forever.<br>Not merely mute."</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 7 · BREAKTHROUGH: SHE SPEAKS (Part 2, Ch 1–8)
+     Image: figure emerging from darkness into light
+══════════════════════════════════════════════ -->
+<div class="slide" id="s7">
+  <div class="slide-bg" style="
+    background-image:url('slide7.jpg');
+    background-position:right center;
+  "></div>
+  <div class="scrim-left"></div>
+  <div class="slide-content">
+    <div class="label">Part Two · Chapters 1–8</div>
+    <h2>She Speaks</h2>
+    <div class="rule"></div>
+    <ul class="bullets">
+      <li>Alicia <strong>wakes from the coma</strong>, visibly altered; something has shifted</li>
+      <li>Theo uncovers the root of her <strong>deepest childhood trauma</strong></li>
+      <li>Her first words in years: she describes <strong>a masked man</strong> who entered their home the night of the murder</li>
+      <li>The masked man <strong>spoke to Gabriel</strong>; Gabriel's reaction changed everything</li>
+      <li>Theo confronts <strong>Kathy</strong> directly, naming the man she has been seeing</li>
+      <li>The truth begins to surface <strong>like a body rising through dark water</strong></li>
+    </ul>
+    <div class="pull-quote">"She finally spoke. And the silence became<br>far more terrifying than before."</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 8 · ALCESTIS
+     Image: Leighton's actual Alcestis painting (public domain, Wikimedia Commons)
+══════════════════════════════════════════════ -->
+<div class="slide" id="s8">
+  <div class="slide-bg" style="
+    background-image:url('slide8 .jpg');
+    background-position:center center;
+    background-size:cover;
+  "></div>
+  <div class="scrim"></div>
+  <div class="slide-content" style="max-width:860px; align-self:center; text-align:left;">
+    <div class="label">The Painting · The Myth · The Confession</div>
+    <h2>Alcestis</h2>
+    <div class="rule"></div>
+    <div class="alcestis-block">
+      <div class="painting-wrapper">
+        <img
+          src="slide8 .jpg"
+          alt="Hercules Wrestling with Death for the Body of Alcestis - Frederic Leighton, 1869-71"
+          loading="lazy"
+        >
+        <div class="painting-caption">Hercules Wrestling with Death for the Body of Alcestis · Frederic Lord Leighton · c.1869–71</div>
+      </div>
+      <div>
+        <p style="font-size:var(--fs-body);line-height:1.65;color:var(--ivory);opacity:.88;margin-bottom:.8rem;">
+          In Euripides' tragedy, <strong style="color:var(--gold-lt)">Alcestis</strong> agrees to die in her husband's place: a sacrifice born of love, or perhaps of something far darker. She is rescued from death, yet when reunited with him she <em>refuses to speak</em>. She too falls silent. She too is misunderstood by all who surround her.
+        </p>
+        <ul class="bullets">
+          <li>Alicia paints herself as Alcestis, <strong>mouth open, wordless</strong></li>
+          <li>The brush drips <strong>red</strong>; rotting apples and maggots surround her figure</li>
+          <li>A <strong>shadowy male figure</strong> lurks deep in the background</li>
+          <li>The painting is her <strong>confession</strong>, for those who can read it</li>
+        </ul>
+        <div class="pull-quote" style="margin-top:.9rem;">"A painting about silence.<br>A scream that no one heard."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 9 · EPILOGUE
+     Image: shadows and light, haunting, cold, final
+══════════════════════════════════════════════ -->
+<div class="slide" id="s9" style="align-items:center;">
+  <div class="slide-bg" style="
+    background-image:url('https://images.stockcake.com/public/2/c/8/2c87059b-e8b9-45c3-97bd-fff3948bf5ed_large/shadows-meet-light-stockcake.jpg');
+    background-position:center;
+  "></div>
+  <div class="scrim"></div>
+  <div class="slide-content centered">
+    <div class="label">Epilogue · Final Act</div>
+    <span class="ornament">✦</span>
+    <h2 style="text-align:center; font-size:var(--fs-h2);">Snow Falls.<br>A Cell. Silence.</h2>
+    <div class="rule center"></div>
+    <ul class="bullets" style="text-align:left; width:100%; max-width:520px;">
+      <li>A <strong>final diary entry</strong>: Alicia's last written words are at last revealed</li>
+      <li>A <strong>final artwork</strong> left behind, her only legacy from The Grove</li>
+      <li><strong>Theo sits in a cell</strong>; the truth has turned everything inside out</li>
+      <li>Snow falls past <strong>barred windows</strong>, cold and indifferent to guilt</li>
+      <li>Alicia's ultimate fate is left <strong>deliberately, hauntingly unresolved</strong></li>
+      <li>The reader must go back to page one: <strong>nothing was what it seemed</strong></li>
+    </ul>
+    <div class="pull-quote" style="text-align:center; border-left:none; border-top:1px solid rgba(181,32,32,.4); padding-top:.9rem; margin-top:.9rem;">
+      "In the end, silence was not her punishment.<br>It was her power."
+    </div>
+    <p class="author" style="margin-top:1.2rem;">The Silent Patient · Alex Michaelides · Celadon Books</p>
+  </div>
+</div>
+
+<!-- NAV -->
+<button class="nav-btn" id="prev" aria-label="Previous">&#8249;</button>
+<button class="nav-btn" id="next" aria-label="Next">&#8250;</button>
+<div id="dots"></div>
+<div id="slide-num"></div>
+
+<script>
+  const TOTAL = 9;
+  let cur = 1;
+
+  const dotsEl = document.getElementById('dots');
+  for (let i = 1; i <= TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 1 ? ' on' : '');
+    d.onclick = () => go(i);
+    dotsEl.appendChild(d);
+  }
+
+  function go(n) {
+    if (n < 1 || n > TOTAL || n === cur) return;
+    const prev = document.getElementById('s' + cur);
+    prev.classList.add('exit');
+    setTimeout(() => prev.classList.remove('active', 'exit'), 850);
+    cur = n;
+    document.getElementById('s' + cur).classList.add('active');
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur - 1));
+    document.getElementById('slide-num').textContent = String(cur).padStart(2,'0') + ' / ' + String(TOTAL).padStart(2,'0');
+    document.getElementById('progress').style.width = (cur / TOTAL * 100) + '%';
+  }
+
+  document.getElementById('prev').onclick = () => go(cur - 1);
+  document.getElementById('next').onclick = () => go(cur + 1);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') go(cur + 1);
+    if (e.key === 'ArrowLeft') go(cur - 1);
+  });
+
+  let tx = 0;
+  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive:true });
+  document.addEventListener('touchend', e => {
+    const dx = tx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 45) go(cur + (dx > 0 ? 1 : -1));
+  });
+
+  document.getElementById('slide-num').textContent = '01 / 0' + TOTAL;
+  document.getElementById('progress').style.width = (1 / TOTAL * 100) + '%';
+</script>
+</body>
+</html>
