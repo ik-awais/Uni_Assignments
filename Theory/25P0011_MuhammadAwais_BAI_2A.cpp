@@ -15,28 +15,14 @@ public:
     EidMela(string melaName, string location, int totalStalls, double entryFee);
     ~EidMela();
     // Getter Functions for Data Members
-    string getmelaName(){
-        return melaName;
-    }
-    string getlocation(){
-        return location;
-    }
-    int gettotalStalls(){
-        return totalStalls;
-    }
-    double getentryFee(){
-        return entryFee;
-    }
-    bool getisOpen(){
-        return isOpen;
-    }
+    string getmelaName(){ return melaName; }
+    string getlocation(){ return location; }
+    int gettotalStalls(){ return totalStalls; }
+    double getentryFee(){ return entryFee; }
+    bool getisOpen(){ return isOpen; }
     // Getter Functions for Static data members
-    static int gettotalMelasHeld(){
-        return totalMelasHeld;
-    }
-    static int gettotalSTallsAcrossAllMelas(){
-        return totalStallsAcrossAllMelas;
-    }
+    static int gettotalMelasHeld(){ return totalMelasHeld; }
+    static int gettotalSTallsAcrossAllMelas(){ return totalStallsAcrossAllMelas; }
 };
 EidMela::EidMela(){
     melaName = "Unnamed Mela";
@@ -47,13 +33,13 @@ EidMela::EidMela(){
     totalMelasHeld++;    
 }
 EidMela::EidMela(string melaName, string location, int totalStalls, double entryFee){
-    isOpen = true;
-    totalStallsAcrossAllMelas += totalStalls;
-    totalMelasHeld++;
     this->melaName = melaName;
     this->location = location;
     this->totalStalls = totalStalls;
     this->entryFee = entryFee;
+    isOpen = true;
+    totalStallsAcrossAllMelas += totalStalls;
+    totalMelasHeld++;
 }
 EidMela::~EidMela(){
     isOpen = false;
@@ -78,57 +64,39 @@ public:
     SweetStall(string stallName, int maxItems, double pricePerKg);
     SweetStall(const SweetStall &sCopy);
     ~SweetStall();
+    // Setter Functions
+    void setItemCount();
+    void setSweetItems(int sizeofPassedArray, string items[]);
+    // Getters for Static Data Variables
+    static int gettotalSweetStalls(){ return totalSweetStalls; }
+    static double gettotalReveneueAllStalls(){ return totalRevenueAllStalls; }
+    static int getIDCounter(){ return IDCounter; }
     // Getter Functions for Data Variables
-    string getstallName(){
-        return stallName;
-    }
-    void getsweetItems(int itemCount){
-        cout  << "Sweet Items\n";        
-        for(int i = 0; i < itemCount; i++)
-            cout << "Item " << i+1 << ": " << sweetItems[i] << " \n";
-    }
-    int getitemCount(){
-        return itemCount; 
-    }
-    int getmaxItems(){
-        return maxItems;
-    }
-    double getpricePerKg(){
-        return pricePerKg;
-    }
-    double gettotalKgSold(){
-        return totalKgSold;
-    }
-    int getstallID(){
-        return stallID;
-    }
-    // GEtters for Static Data Variables
-    static int gettotalSweetStalls(){
-        return totalSweetStalls;
-    }
-    static double gettotalReveneueAllStalls(){
-        return totalRevenueAllStalls;
-    }
-    static int getIDCounter(){
-        return IDCounter;
-    }
+    string getstallName(){ return stallName; }
+    void getsweetItems(int itemCount);
+    int getitemCount(){ return itemCount; }
+    int getmaxItems(){ return maxItems; }
+    double getpricePerKg(){ return pricePerKg; }
+    double gettotalKgSold(){ return totalKgSold; }
+    int getstallID(){ return stallID; }
 };
 SweetStall::SweetStall(){
     stallName = "Unknown Stall";
-    stallID = ++IDCounter;
+    stallID = IDCounter++;
     maxItems = 3;
     sweetItems = new string[maxItems];
+    itemCount = 0;
     pricePerKg = 0;
     totalKgSold = 0;
     totalSweetStalls++;
 }
 SweetStall::SweetStall(string stallName, int maxItems, double pricePerKg){
-    stallID = ++IDCounter;
-    sweetItems = new string[maxItems];
-    totalSweetStalls++;
     this->stallName = stallName;
     this->maxItems = maxItems;
     this->pricePerKg = pricePerKg;
+    stallID = IDCounter++;
+    sweetItems = new string[maxItems];
+    totalSweetStalls++;
     totalKgSold = 0;
     itemCount = 0;
 }
@@ -139,82 +107,64 @@ SweetStall::SweetStall(const SweetStall &sCopy){
     this->totalKgSold = sCopy.totalKgSold;
     this->maxItems = sCopy.maxItems;
     sweetItems = new string[maxItems];
-    for(int i = 0; i < maxItems; i++)
+    for(int i = 0; i < itemCount; i++)
         sweetItems[i] = sCopy.sweetItems[i];
-    stallID = ++IDCounter;
+    stallID = IDCounter++;
     totalSweetStalls++;
 }
 SweetStall::~SweetStall(){
     delete[] sweetItems;
     totalSweetStalls--;
-    cout << "[Stall Closed] " << stallName << " (ID: " << stallID << ") has packed up. Ma’assalam!" << endl;
+    cout << "[Stall Closed] " << stallName << " (ID: " << stallID << ") has packed up. Ma'assalam!" << endl;
+}
+void SweetStall::getsweetItems(int itemCount){
+    cout  << "Sweet Items\n";        
+    for(int i = 0; i < itemCount; i++)
+        cout << "Item " << i+1 << ": " << sweetItems[i] << " \n";
 }
 int SweetStall::totalSweetStalls = 0;
 double SweetStall::totalRevenueAllStalls = 0;
-int SweetStall::IDCounter = 100;
+int SweetStall::IDCounter = 101;
 class Visitor{
     static int totalVisitors;
-    static double totalEidDistributed;
-    static int IDVistors;
+    static int IDVisitors;
     string name;
     int visitorID;
     int age;
-    double eidiReceived;
-    double budget;
     string *purchasedItems;
     int purchaseCount;
     int maxPurchases;
 public:
+    static double totalEidDistributed;
+    double eidiReceived;
+    double budget;
     // Constructors & Destructors
     Visitor();
     Visitor(string name, int age, double budget, int maxPurchases);
     Visitor(const Visitor &vCopy);
     ~Visitor();
-    // Setter Fucntion
-    void setData(double eidiReceived);
+    // Setter Function for user input variables
+    void setPurchaseCount();
+    void setPurchasedItems(int purchaseCount);
     // Gettter Functions for Static Data Variables
-    static int gettotalVisitors(){
-        return totalVisitors;
-    }
-    static double gettotaalEidDistributed(){
-        return totalEidDistributed;
-    }
-    static int getIDVisitors(){
-        return IDVistors;
-    }
+    static int gettotalVisitors(){ return totalVisitors; }
+    static int getIDVisitors(){ return IDVisitors; }
     // Getter Functions for Non-Static Data Variables
-    string getname(){
-        return name;
-    }
-    int getvisitorID(){
-        return visitorID;
-    }
-    int getage(){
-        return age;
-    }
-    double geteidiReceived(){
-        return eidiReceived;
-    }
-    double getbudget(){
-        return budget;
-    }
-    void getpurchasedItems(){
-        cout << "Purchased Items\n";
-        for(int i = 0; i < purchaseCount; i++)
-            cout << "Item " << i+1 << ": " << purchasedItems[i] << " \n";
-    }
-    int getpurchaseCount(){
-        return purchaseCount;
-    }
-    int getmaxPurchases(){
-        return maxPurchases;
-    }
+    string getname(){ return name; }
+    int getvisitorID(){ return visitorID; }
+    int getage(){ return age; }
+    double geteidiReceived(){ return eidiReceived; }
+    double getbudget(){ return budget; }
+    int getpurchaseCount(){ return purchaseCount; }
+    int getmaxPurchases(){ return maxPurchases; }
+    void getpurchasedItems(int purchaseCount);
 };
 Visitor::Visitor(){
     name = "Guest";
-    visitorID = ++IDVistors;
+    visitorID = IDVisitors++;
     age = 0;
     eidiReceived = 0;
+    purchaseCount = 0;
     budget = 500;
     maxPurchases = 5;
     purchasedItems = new string[maxPurchases];
@@ -226,7 +176,7 @@ Visitor::Visitor(string name, int age, double budget, int maxPurchases){
     this->budget = budget;
     this->maxPurchases = maxPurchases;
     purchasedItems = new string[maxPurchases];
-    visitorID = ++IDVistors;
+    visitorID = IDVisitors++;
     eidiReceived = 0;
     purchaseCount = 0;
     totalVisitors++;
@@ -241,7 +191,7 @@ Visitor::Visitor(const Visitor &vCopy){
     purchasedItems = new string[maxPurchases];
     for(int i = 0; i < purchaseCount; i++)
         purchasedItems[i] = vCopy.purchasedItems[i];
-    visitorID = ++IDVistors;
+    visitorID = IDVisitors++;
     totalVisitors++;
 }
 Visitor::~Visitor(){
@@ -249,14 +199,36 @@ Visitor::~Visitor(){
     totalVisitors--;
     cout << "[Visitor Left] " << name << " has left the mela. Eid Mubarak!" << endl; 
 }
-void Visitor::setData(double eidiReceived){
-    this->eidiReceived = eidiReceived;
-    this->budget += eidiReceived;
-    totalEidDistributed += eidiReceived;
+void Visitor::setPurchaseCount(){
+    cout << "Enter the number of Items purchased: ";
+    cin >> purchaseCount;
+}
+void Visitor::setPurchasedItems(int purchaseCount){
+    if(purchaseCount > maxPurchases)
+    {
+        cout << "Purchase count exceeds max limit of " << maxPurchases << ". Select your Purchase Count again\n";
+        setPurchaseCount(); 
+        setPurchasedItems(this->purchaseCount);
+        return;
+    }
+    this->purchaseCount = purchaseCount;
+    cout << "Enter the Purchased Items: ";
+    for(int i = 0; i < purchaseCount; i++)
+        cin >> purchasedItems[i];
+};
+void Visitor::getpurchasedItems(int count){
+    if(count == 0)
+    {
+        cout << "No items purchased.\n";
+        return;
+    } 
+    cout << "Purchased Items\n";
+    for(int i = 0; i < count; i++)
+        cout << "Item " << i+1 << ": " << purchasedItems[i] << " \n";
 }
 int Visitor::totalVisitors = 0;
 double Visitor::totalEidDistributed = 0;
-int Visitor::IDVistors = 5000;
+int Visitor::IDVisitors = 5001;
 int main(){
     EidMela obj1, obj2("Bachgana Mela", "Cantt Road", 2, 200);
     // Display info of 2 EidMela Objects
@@ -269,28 +241,57 @@ int main(){
     cout << "Name of Mela: " << obj2.getmelaName() << "\n" << "Location: " << obj2.getlocation() 
     << "\n" << "Total Stalls: " << obj2.gettotalStalls() << "\n" 
     << "Entry Fee: " << obj2.getentryFee() << "\n" << "Status: " << (obj2.getisOpen() ? "Open\n" : "Closed\n");
+    cout << "Total Melas Held: " << EidMela::gettotalMelasHeld() << endl;
     SweetStall sweet1, sweet2("Rasgulla shop", 4, 900.89), sweet3(sweet2);
     // Verify Copy Constructor Assigning a Unique ID to copied object
     cout << "===Sweet Stall Statistics===\n";
     cout << "Name of Stall: " << sweet2.getstallName() << "\n" << "ID: " << sweet2.getstallID() << endl;
     cout << "Name of Stall(Copied): " << sweet3.getstallName() << "\n" 
     << "ID(new ID): " << sweet3.getstallID() << endl;
-    Visitor v1, v2("Awais", 19, 5000.87, 5), v3("Zulqarnain", 31, 5100, 2), v4(v3);
-    v1.setData(300.50);
-    v2.setData(1000.33);
-    v3.setData(200.32);
-    v4.setData(500.22);
-    // Verify Deep Copy works for the copied object
+    Visitor v1, v2("Awais", 19, 5000.87, 5), v3("Zulqarnain", 31, 5100, 2);
+    v1.eidiReceived = 300.50;
+    v1.budget += v1.eidiReceived;
+    v2.eidiReceived = 1000.33;
+    v2.budget += v2.eidiReceived;
+    v3.eidiReceived = 200.32;
+    v3.budget += v3.eidiReceived;
+    // Verify Deep Copy works for the copied object 
+    v3.setPurchaseCount();
+    v3.setPurchasedItems(v3.getpurchaseCount()); 
+    Visitor v4(v3);  
+    v4.eidiReceived = 500.22;
+    v4.budget = v4.eidiReceived;
+    Visitor::totalEidDistributed += v1.eidiReceived+v2.eidiReceived+v3.eidiReceived+v4.eidiReceived;
     cout << "Visitor 3 items: "<< endl;
-    v3.getpurchasedItems();
+    v3.getpurchasedItems(v3.getpurchaseCount());
     cout << "Visitor 4 items(deep copy): " << endl;
-    v4.getpurchasedItems(); 
+    v4.getpurchasedItems(v4.getpurchaseCount()); 
+    // Changing v4 to verify Deep Copy
+    cout << "Modifying copied object to verify Deep Copy\n";
+    v4.setPurchaseCount();
+    v4.setPurchasedItems(v4.getpurchaseCount());
+    cout << "Visitor 3 items: "<< endl;
+    v3.getpurchasedItems(v3.getpurchaseCount());
+    cout << "Visitor 4 items(after modification): " << endl;
+    v4.getpurchasedItems(v4.getpurchaseCount());
+    // Verify the NSB Work
+    cout << "===Nested Scope Block Test===\n";
+    cout << "Number of Stalls Before the NSB: " << SweetStall::gettotalSweetStalls() << endl;
+    cout << "Number of Visitors Before the NSB: " << Visitor::gettotalVisitors() << endl; 
     {
         SweetStall myStall("AwaisSweets", 3, 1100.76);
         Visitor myVisitor("X", 27, 10988.99, 5);
+        cout << "===Inside the Nested Scope Block===\n";
+        cout << "Number of Stalls inside the NSB: " << SweetStall::gettotalSweetStalls() << endl;
+        cout << "Number of Visitors inside the NSB: " << Visitor::gettotalVisitors() << endl; 
     }
+    cout << "===After the Nested Scope Block===\n";
+    cout << "Number of Stalls after the NSB: " << SweetStall::gettotalSweetStalls() << endl;
+    cout << "Number of Visitors after the NSB: " << Visitor::gettotalVisitors() << endl; 
+    // City-Wide Statistics
+    cout << "===City-wide Statistics===\n";
     cout << "Total Melas Held: " << EidMela::gettotalMelasHeld() << endl; 
     cout << "Total Stalls Across All Melas: " << EidMela::gettotalSTallsAcrossAllMelas() << endl;
     cout << "Total Visitors: " << Visitor::gettotalVisitors() << endl;
-    cout << "Total Eidi Distributed: " << Visitor::gettotaalEidDistributed() << endl;   
+    cout << "Total Eidi Distributed: " << Visitor::totalEidDistributed << endl;   
 }
