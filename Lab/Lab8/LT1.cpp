@@ -16,8 +16,8 @@ BankAccount::BankAccount(double deposit){
     BankAccount::totalBalance += deposit;
 }
 BankAccount::~BankAccount(){
-    cout << "\nAccount Closed\n";
     BankAccount::showTotalBalance();
+    cout << "\nAccount Closed\n";
 }
 void BankAccount::showTotalBalance(){
     cout << "\nTotal Balance: " << BankAccount::totalBalance << endl;
