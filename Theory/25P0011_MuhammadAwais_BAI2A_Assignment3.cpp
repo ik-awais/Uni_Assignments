@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+// Vector Class
 class Vector{
 protected:
     int* array;
@@ -16,10 +17,7 @@ public:
 };
 Vector::Vector(int size){
     if(size <= 0)
-    {
-        cout << "Invalid size!\n";
         return;
-    }
     this->size = size;
     check = 0;
     array = new int[size];
@@ -38,6 +36,7 @@ void Vector::resize(){
         array[i] = temp[i];
     delete[] temp;
 }
+// Vector Methods as stated in Chapter 1
 void Vector::get(int index){
     index<check ? 
     cout << array[index] << "is at index[" << index << "]\n" :
@@ -46,6 +45,7 @@ void Vector::get(int index){
 void Vector::find_len(){
     cout << "Length of Vector is: " << check << endl;
 }
+// Required Method for Vectors' Output
 void Vector::getData(){
     for(int i = 0; i < check; i++){
         cout << array[i] << " ";
@@ -56,10 +56,11 @@ Vector::~Vector(){
     delete[] array;
     array = nullptr;
 }
+// Unique Vector
 class Unique_Vector : public Vector{
 public:
     Unique_Vector(int);
-    ~Unique_Vector();
+    ~Unique_Vector() {};
     void push_back(int);
 };
 Unique_Vector::Unique_Vector(int size):Vector(size){};
@@ -73,71 +74,33 @@ void Unique_Vector::push_back(int num){
     }
     Vector::push_back(num);
 }
-Unique_Vector::~Unique_Vector(){
-    delete[] array;
-    array = nullptr;
-}
+// Frequency Vector
 class FrequencyVector : public Vector{
-    int* freqArray;
-    int* uniqArray;
-    int freq;
 public:
+    int freqArr[3];
+    int j = 0;
     FrequencyVector(int);
     ~FrequencyVector();
     void push_back(int);
     void findFreq(int);
 };
-FrequencyVector::FrequencyVector(int size):Vector(size){
-    freq = 0;
-    freqArray = new int[size];
-    uniqArray = new int[size];
-}
+FrequencyVector::FrequencyVector(int size):Vector(size){}
 void FrequencyVector::push_back(int num){
-    for(int i = 0; i < check; i++)
-    {
-        if(array[i] == num)
-        {
-            freqArray[i]++;
-        }
-        if(uniqArray[i] == num)
-        {
-            continue;
-        }
-        else
-        {
-            uniqArray[i] = num;
-        }
-        if(uniqArray[i] == num)
-        {
-            continue;
-        }
-        else
-        {
-            uniqArray[i] = num;
-        }
-    }
     Vector::push_back(num);
 }
-void FrequencyVector::findFreq(int findFreq)
-{
-    for(int i = 0; i < size; i++)
+void FrequencyVector::findFreq(int findFreq){
+    int freq= 0;
+    for(int i = 0; i < check; i++)
     {
-        if(findFreq == uniqArray[i])
+        if(findFreq == array[i])
         {
-            cout << freqArray[i] << " ";
-        }
-        else
-        {
-            cout << 0 << " ";
+            freq++;
         }
     }
+    freqArr[j] = freq;
+    j++;
 }
-FrequencyVector::~FrequencyVector(){
-    delete[] uniqArray;
-    uniqArray = nullptr;
-    delete[] freqArray;
-    freqArray = nullptr;
-}
+FrequencyVector::~FrequencyVector(){}
 int main(){
     int size = 0;
     cin >> size;
@@ -152,7 +115,7 @@ int main(){
     cin >> size;
     Unique_Vector v2(size);
     for(int i = 0; i < size; i++)
-        cin >> array[i];
+        cin >> array[i];    
     for(int i = 0; i < size; i++)
         v2.push_back(array[i]);
     // Frequency Vector Object
@@ -163,13 +126,23 @@ int main(){
     for(int i = 0; i < size; i++)
         v3.push_back(array[i]);
     int findFreq[3];
-    for(int i = 1; i <= 3; i++)
+    for(int i = 0; i < 3; i++)
         cin >> findFreq[i];
         // Output
+    cout << "Printing Vector: ";
     v1.getData();
+    cout << "Printing Unique Vector: ";
     v2.getData();
+    cout << "Printing the Frequency Vector: ";
     v3.getData();
-    for(int i = 1; i <= 3; i++)
-        v3.findFreq(findFreq[i]);
+    for(int i = 0; i < 3; i++)
+    {
+        v3.findFreq(array[i]);
+    }
+    for(int i = 0; i < 3; i++)
+    {
+        cout << v3.freqArr[i] << " ";
+    }
+    cout << endl;
     return 0;
 }
