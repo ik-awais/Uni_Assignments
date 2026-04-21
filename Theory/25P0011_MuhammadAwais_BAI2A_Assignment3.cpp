@@ -7,12 +7,12 @@ protected:
     int check;
 public:
     Vector(int);
-    virtual ~Vector();
-    virtual void push_back(int);
+    ~Vector();
+    void push_back(int);
     void resize();
     void get(int);
     void find_len();
-    virtual void getData();
+    void getData();
 };
 Vector::Vector(int size){
     if(size <= 0)
@@ -58,31 +58,23 @@ Vector::~Vector(){
 }
 class Unique_Vector : public Vector{
 public:
-    Unique_Vector(int) : Vector(size) {};
+    Unique_Vector(int);
     ~Unique_Vector();
     void push_back(int);
 };
+Unique_Vector::Unique_Vector(int size):Vector(size){};
 void Unique_Vector::push_back(int num){
     for(int i = 0; i < check; i++)
     {
         if(array[i] == num)
         {
-            cout << "Element already exists\n";
             return;
         }
     }
-    if(check>=size)
-        resize();
-    array[check] = num;
-    check++;
-}
-void Unique_Vector::getData(){
-    for(int i = 0; i < check; i++){
-        cout << array[i] << " ";
-    }
-    cout << endl;
+    Vector::push_back(num);
 }
 Unique_Vector::~Unique_Vector(){
+    delete[] array;
     array = nullptr;
 }
 class FrequencyVector : public Vector{
@@ -90,11 +82,16 @@ class FrequencyVector : public Vector{
     int* uniqArray;
     int freq;
 public:
-    FrequencyVector(int) : Vector(size) {};
+    FrequencyVector(int);
     ~FrequencyVector();
     void push_back(int);
     void findFreq(int);
 };
+FrequencyVector::FrequencyVector(int size):Vector(size){
+    freq = 0;
+    freqArray = new int[size];
+    uniqArray = new int[size];
+}
 void FrequencyVector::push_back(int num){
     for(int i = 0; i < check; i++)
     {
@@ -110,11 +107,16 @@ void FrequencyVector::push_back(int num){
         {
             uniqArray[i] = num;
         }
+        if(uniqArray[i] == num)
+        {
+            continue;
+        }
+        else
+        {
+            uniqArray[i] = num;
+        }
     }
-    if(check>=size)
-        resize();
-    array[check] = num;
-    check++;
+    Vector::push_back(num);
 }
 void FrequencyVector::findFreq(int findFreq)
 {
@@ -130,15 +132,7 @@ void FrequencyVector::findFreq(int findFreq)
         }
     }
 }
-void FrequencyVector::getData(){
-    for(int i = 0; i < check; i++){
-        cout << array[i] << " ";
-    }
-    cout << endl;
-}
 FrequencyVector::~FrequencyVector(){
-    delete[] array;
-    array = nullptr;
     delete[] uniqArray;
     uniqArray = nullptr;
     delete[] freqArray;
@@ -173,8 +167,8 @@ int main(){
         cin >> findFreq[i];
         // Output
     v1.getData();
-    v2.Unique_Vector::getData();
-    v3.FrequencyVector::getData();
+    v2.getData();
+    v3.getData();
     for(int i = 1; i <= 3; i++)
         v3.findFreq(findFreq[i]);
     return 0;
