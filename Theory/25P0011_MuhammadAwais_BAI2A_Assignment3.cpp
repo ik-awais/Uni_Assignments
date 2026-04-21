@@ -58,19 +58,9 @@ Vector::~Vector(){
 }
 class Unique_Vector : public Vector{
 public:
-    Unique_Vector(int);
+    Unique_Vector(int) : Vector(size) {};
     ~Unique_Vector();
     void push_back(int);
-};
-Unique_Vector::Unique_Vector(int size){
-    if(size <= 0)
-    {
-        cout << "Invalid size!\n";
-        return;
-    }
-    this->size = size;
-    check = 0;
-    array = new int[size];
 };
 void Unique_Vector::push_back(int num){
     for(int i = 0; i < check; i++)
@@ -93,7 +83,6 @@ void Unique_Vector::getData(){
     cout << endl;
 }
 Unique_Vector::~Unique_Vector(){
-    delete[] array;
     array = nullptr;
 }
 class FrequencyVector : public Vector{
@@ -101,24 +90,11 @@ class FrequencyVector : public Vector{
     int* uniqArray;
     int freq;
 public:
-    FrequencyVector(int);
+    FrequencyVector(int) : Vector(size) {};
     ~FrequencyVector();
     void push_back(int);
     void findFreq(int);
 };
-FrequencyVector::FrequencyVector(int size){
-    if(size <= 0)
-    {
-        cout << "Invalid size!\n";
-        return;
-    }
-    this->size = size;
-    check = 0;
-    freq = 0;
-    array = new int[size];
-    freqArray = new int[size];
-    uniqArray = new int[size];
-}
 void FrequencyVector::push_back(int num){
     for(int i = 0; i < check; i++)
     {
