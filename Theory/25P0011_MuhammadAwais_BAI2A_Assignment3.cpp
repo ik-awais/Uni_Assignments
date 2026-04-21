@@ -137,7 +137,7 @@ int main(){
     v3.getData();
     for(int i = 0; i < 3; i++)
     {
-        v3.findFreq(array[i]);
+        v3.findFreq(findFreq[i]);
     }
     for(int i = 0; i < 3; i++)
     {
