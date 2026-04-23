@@ -27,6 +27,9 @@ private:
     int roll_number;
 public:
     Student(float f, int r, int a, char n):  Person(a, n){
+        cout << "I am in derived Class\n";
+        fee = f;
+        roll_number = r;
     }
     void set_Student_data(int r)
     {
