@@ -5,8 +5,11 @@ protected:
     int age;
     string name;
 public:
-    Person();
-    ~Person();
+    Person(char n, int a){
+        cout << "I am in base class" << endl;
+        name = n;
+        age = a;
+    }
     void get_data(){
         cout << "Enter name: ";
         cin >> name;
@@ -14,8 +17,8 @@ public:
         cin >> age;
     }
     void show_data(){
-        cout << "Name: " << name;
-        cout << "Age:" << age;
+        cout << "Name: " << name << endl;
+        cout << "Age:" << age << endl;
     }
 };
 class Student: public Person{
@@ -23,6 +26,8 @@ private:
     float fee;
     int roll_number;
 public:
+    Student(float f, int r, int a, char n):  Person(a, n){
+    }
     void set_Student_data(int r)
     {
         get_data();
@@ -34,14 +39,12 @@ public:
     }
     void show_student_data(){
         show_data();
-        cout << roll_number;
-        cout << fee;
+        cout << roll_number << endl;
+        cout << fee << endl;
     }
 };
 int main(){
-    Student s;
-    s.set_Student_data(1);
-    s.calculatet_fee(1200);
+    Student s(24000.90, 1, 25, 'A');
     s.show_student_data();
-    return;
+    return 0;
 }
