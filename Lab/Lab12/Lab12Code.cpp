@@ -5,13 +5,13 @@ protected:
     int age;
 public:
     void setData(std::string, int);
-    virtual void showData() const = 0;
+    virtual void showData();
 };
 void Person::setData(std::string name, int age){
     this->name = name;
     this->age = age;
 }
-void Person::showData() const {
+void Person::showData(){
     std::cout << "Name: " << name << "\nAge: " << age << "\n"; 
 }
 class Student: public Person{
