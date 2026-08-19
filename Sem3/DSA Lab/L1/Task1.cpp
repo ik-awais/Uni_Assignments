@@ -8,7 +8,7 @@ using namespace std;
       total += tokens[i];
     }
     cout << "Average Token: " << total/n << endl;
-  }
+  } 
   
   void highest(int (&tokens)[50], int n){
   int highest = 0;
