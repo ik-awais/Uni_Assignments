@@ -446,3 +446,223 @@ void loadSeedWeek(Week& w) {
     float lastPrice = *(PRICES + lastWhich);
     bookAppointment(w, lastDay, lastClientId, lastName, lastService, lastPrice);
 }
+
+void printMenu() {
+    std::cerr << "---- GLOW & GRACE SALON MENU ----\n";
+    std::cerr << " 0  EXIT\n";
+    std::cerr << " 1  BOOK day id name service price\n";
+    std::cerr << " 2  CANCEL day slot\n";
+    std::cerr << " 3  PRINT_DAY day\n";
+    std::cerr << " 4  PRINT_WEEK\n";
+    std::cerr << " 5  MOVE fromDay fromSlot toDay\n";
+    std::cerr << " 6  BUILD_INDEX\n";
+    std::cerr << " 7  PRINT_INDEX\n";
+    std::cerr << " 8  SORT_INDEX\n";
+    std::cerr << " 9  DROP_INDEX\n";
+    std::cerr << "10  FIND id\n";
+    std::cerr << "11  SEED\n";
+    std::cerr << "12  BOOK_BYVAL day id name service price\n";
+    std::cerr << "13  DESTROY_WEEK\n";
+    std::cerr << "14  UTILS\n";
+    std::cerr << "----------------------------------\n";
+    std::cerr << "Enter a command number (and its arguments, space-separated):\n";
+}
+
+int main() {
+    printf("=== GLOW & GRACE SALON ===\n");
+    printf("ROLL_N=%d P2=%d P3=%d\n", ROLL_N, P2, P3);
+    printMenu();
+    Week w;
+    initWeek(w);
+    Appointment** index = nullptr;
+    int count = 0;
+    int choice;
+    bool running = true;
+    while (running)
+    {
+        std::cerr << "> ";
+        if (!(std::cin >> choice)) { break; }
+        switch (choice) 
+        {
+            case 0: 
+            {
+                running = false;
+                break;
+            }
+            case 1: 
+            {
+                int day, id;
+                char name[64], service[64];
+                float price;
+                std::cin >> day >> id;
+                std::cin.width(sizeof(name));
+                std::cin >> name;
+                std::cin.width(sizeof(service));
+                std::cin >> service;
+                std::cin >> price;
+                if (index) { destroyIndex(index, count); }
+                if (bookAppointment(w, day, id, name, service, price)) 
+                {
+                    printf("OK BOOKED d%d %04d\n", day, id);
+                }
+                break;
+            }
+            case 2: 
+            {
+                int day, slot;
+                std::cin >> day >> slot;
+                if (index) { destroyIndex(index, count); }
+                if (cancelAppointment(w, day, slot)) 
+                {
+                    printf("OK CANCELLED d%d s%d\n", day, slot);
+                }
+                break;
+            }
+            case 3: 
+            {
+                int day;
+                std::cin >> day;
+                if (!w.days) 
+                {
+                    printf("ERR WEEK_DESTROYED\n");
+                } 
+                else if (day < 0 || day >= w.dayCount) 
+                {
+                    printf("ERR BAD_DAY\n");
+                } 
+                else 
+                {
+                    printDay(w.days[day], day);
+                }
+                break;
+            }
+            case 4: 
+            {
+                printWeek(w);
+                break;
+            }
+            case 5: 
+            {
+                int fromDay, fromSlot, toDay;
+                std::cin >> fromDay >> fromSlot >> toDay;
+                if (index) { destroyIndex(index, count); }
+                if (moveAppointment(w, fromDay, fromSlot, toDay)) 
+                {
+                    printf("OK MOVED d%d s%d -> d%d\n", fromDay, fromSlot, toDay);
+                }
+                break;
+            }
+            case 6: 
+            {
+                if (index) { destroyIndex(index, count); }
+                index = buildIndex(w, count);
+                printf("OK INDEX_BUILT size=%d\n", count);
+                break;
+            }
+            case 7: 
+            {
+                printIndex(index, count);
+                break;
+            }
+            case 8: 
+            {
+                sortIndexByPrice(index, count);
+                printf("OK INDEX_SORTED\n");
+                break;
+            }
+            case 9: 
+            {
+                destroyIndex(index, count);
+                printf("OK INDEX_DROPPED\n");
+                break;
+            }
+            case 10: 
+            {
+                int id;
+                std::cin >> id;
+                int outDay, outSlot;
+                Appointment* found = findAppointment(w, id, outDay, outSlot);
+                if (!found) 
+                {
+                    printf("ERR NOT_FOUND\n");
+                } 
+                else 
+                {
+                    printf("OK FOUND %04d day=%d slot=%d %-8s PKR %8.2f\n",
+                           id, outDay, outSlot, found->service, found->price);
+                }
+                break;
+            }
+            case 11: 
+            {
+                if (index) { destroyIndex(index, count); }
+                loadSeedWeek(w);
+                printf("OK SEED_LOADED\n");
+                break;
+            }
+            case 12: 
+            {
+                int day, id;
+                char name[64], service[64];
+                float price;
+                std::cin >> day >> id;
+                std::cin.width(sizeof(name));
+                std::cin >> name;
+                std::cin.width(sizeof(service));
+                std::cin >> service;
+                std::cin >> price;
+                if (day < 0 || day >= DAYS_IN_WEEK) 
+                {
+                    printf("ERR BAD_DAY\n");
+                } 
+                else if (!w.days) 
+                {
+                    printf("ERR WEEK_DESTROYED\n");
+                } 
+                else 
+                {
+                    DaySchedule dayCopy = w.days[day];
+                    printf("BYVAL pre count=%d capacity=%d\n", dayCopy.count, dayCopy.capacity);
+                    bool result = bookByValue(dayCopy, id, name, service, price);
+                    printf("BYVAL returned=%d\n", result ? 1 : 0);
+                    printf("BYVAL post count=%d capacity=%d\n", w.days[day].count, w.days[day].capacity);
+                }
+                break;
+            }
+            case 13: 
+            {
+                if (index) { destroyIndex(index, count); }
+                destroyWeek(w);
+                printf("OK WEEK_DESTROYED\n");
+                break;
+            }
+            case 14: 
+            {
+                reportSizes();
+                float list[10];
+                fillPrices(list, list + 10, 10);
+                printf("A2 LIST:");
+                for (int i = 0; i < 10; i++) { printf(" %.1f", list[i]); }
+                printf("\n");
+                printf("A2 SUM=%.2f\n", sumRange(list, list + 10));
+                float* maxPtr = maxElementPtr(list, list + 10);
+                printf("A2 MAX=%.1f OFF=%d\n", *maxPtr, (int)(maxPtr - list));
+                printf("A2 ABOVE=%d\n", countAbove(list, list + 10, 1000.0f));
+                reverseInPlace(list, list + 10);
+                printf("A2 REV:");
+                for (int i = 0; i < 10; i++) { printf(" %.1f", list[i]); }
+                printf("\n");
+                break;
+            }
+            default: 
+            {
+                printf("ERR BAD_choice\n");
+                break;
+            }
+        }
+    }
+    if (index) { destroyIndex(index, count); }
+    destroyWeek(w);
+    printf("BYE\n");
+    return 0;
+}

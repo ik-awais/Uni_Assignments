@@ -377,3 +377,280 @@ void loadFleetB(Fleet& f) {
     addReading(beta, *(SENSORS + (SEED + 1) % 6), (float)SEED + 20.5f, *(STATUS + (SEED + 1) % 3));
     addReading(beta, *(SENSORS + (SEED + 2) % 6), (float)SEED + 40.5f, *(STATUS + (SEED + 2) % 3));
 }
+
+void printMenu() {
+    std::cerr << "---- MISSION CONTROL MENU ----\n";
+    std::cerr << " 0  EXIT\n";
+    std::cerr << " 1  ADD id sign\n";
+    std::cerr << " 2  LOG id sensor value status\n";
+    std::cerr << " 3  REMOVE id\n";
+    std::cerr << " 4  FIND id\n";
+    std::cerr << " 5  PRINT_A\n";
+    std::cerr << " 6  GROW\n";
+    std::cerr << " 7  ADD_BYVAL id sign\n";
+    std::cerr << " 8  CLONE id\n";
+    std::cerr << " 9  PRINT_CLONE\n";
+    std::cerr << "10  ALIAS id\n";
+    std::cerr << "11  SEED_A\n";
+    std::cerr << "12  SEED_B\n";
+    std::cerr << "13  PRINT_B\n";
+    std::cerr << "14  MERGE_B\n";
+    std::cerr << "15  MERGE_SELF\n";
+    std::cerr << "16  DESTROY\n";
+    std::cerr << "17  SIZES\n";
+    std::cerr << "-------------------------------\n";
+    std::cerr << "Enter a command number (and its arguments, space-separated):\n";
+}
+
+int main() {
+    printf("=== MISSION CONTROL ===\n");
+    printf("ROLL_N=%d P1=%d P2=%d P3=%d\n", ROLL_N, P1, P2, P3);
+    printMenu();
+    Fleet A, B;
+    initFleet(A, P1);
+    initFleet(B, 2);
+    Probe* clone = nullptr;
+    int choice;
+    bool running = true;
+    while (running)
+    {
+        std::cerr << "> ";
+        if (!(std::cin >> choice)) { break; }
+        switch (choice) 
+        {
+            case 0: 
+            {
+                running = false;
+                break;
+            }
+            case 1: 
+            {
+                int id;
+                char sign[64];
+                std::cin >> id;
+                std::cin.width(sizeof(sign));
+                std::cin >> sign;
+                if (addProbe(A, id, sign)) 
+                {
+                    printf("OK PROBE_ADDED %04d\n", id);
+                }
+                break;
+            }
+            case 2: 
+            {
+                int id;
+                char sensor[64];
+                float value;
+                char status[64];
+                std::cin >> id;
+                std::cin.width(sizeof(sensor));
+                std::cin >> sensor;
+                std::cin >> value;
+                std::cin.width(sizeof(status));
+                std::cin >> status;
+                Probe* p = findProbe(A, id);
+                if (!p) 
+                {
+                    printf("ERR NOT_FOUND\n");
+                } 
+                else 
+                {
+                    if (addReading(p, sensor, value, status[0])) 
+                    {
+                        printf("OK LOG_ADDED %04d %s\n", id, sensor);
+                    }
+                }
+                break;
+            }
+            case 3: 
+            {
+                int id;
+                std::cin >> id;
+                if (removeProbe(A, id)) 
+                {
+                    printf("OK PROBE_REMOVED %04d\n", id);
+                }
+                break;
+            }
+            case 4: 
+            {
+                int id;
+                std::cin >> id;
+                Probe* p = findProbe(A, id);
+                if (!p) 
+                {
+                    printf("ERR NOT_FOUND\n");
+                } 
+                else 
+                {
+                    printf("OK FOUND %04d\n", id);
+                    printProbe(p);
+                }
+                break;
+            }
+            case 5: 
+            {
+                printf("A:\n");
+                printFleet(A);
+                break;
+            }
+            case 6: 
+            {
+                if (growFleet(A)) 
+                {
+                    printf("OK FLEET_GROWN capacity=%d\n", A.capacity);
+                }
+                break;
+            }
+            case 7: 
+            {
+                int id;
+                char sign[64];
+                std::cin >> id;
+                std::cin.width(sizeof(sign));
+                std::cin >> sign;
+                printf("BYVAL pre count=%d capacity=%d\n", A.count, A.capacity);
+                bool result = addProbeByValue(A, id, sign);
+                printf("BYVAL returned=%d\n", result ? 1 : 0);
+                printf("BYVAL post count=%d capacity=%d\n", A.count, A.capacity);
+                break;
+            }
+            case 8: 
+            {
+                int id;
+                std::cin >> id;
+                Probe* p = findProbe(A, id);
+                if (!p) 
+                {
+                    printf("ERR NOT_FOUND\n");
+                } 
+                else 
+                {
+                    destroyProbe(clone);
+                    deepCopyProbe(p, clone);
+                    printf("OK CLONED %04d\n", id);
+                }
+                break;
+            }
+            case 9: 
+            {
+                if (!clone) 
+                {
+                    printf("ERR NO_CLONE\n");
+                } 
+                else 
+                {
+                    printf("CLONE:\n");
+                    printProbe(clone);
+                }
+                break;
+            }
+            case 10: 
+            {
+                int id;
+                std::cin >> id;
+                Probe* found = findProbe(A, id);
+                if (!found) 
+                {
+                    printf("ERR NOT_FOUND\n");
+                } 
+                else 
+                {
+                    Probe stackProbe;
+                    stackProbe.probeId = 0;
+                    stackProbe.callSign = nullptr;
+                    stackProbe.readings = nullptr;
+                    stackProbe.readingCount = 0;
+                    stackProbe.readingCapacity = 0;
+                    aliasCopyProbe(found, &stackProbe);
+                    int signSame = (stackProbe.callSign == found->callSign) ? 1 : 0;
+                    int logsSame = (stackProbe.readings == found->readings) ? 1 : 0;
+                    printf("ALIAS sign=%d logs=%d\n", signSame, logsSame);
+                    if (stackProbe.callSign && *stackProbe.callSign) 
+                    {
+                        *stackProbe.callSign = 'Z';
+                    }
+                    char st;
+                    if (stackProbe.readings && stackProbe.readingCount > 0) 
+                    {
+                        st = found->readings[0].status;
+                        stackProbe.readings[0].status = 'C';
+                    } 
+                    else 
+                    {
+                        st = '-';
+                    }
+                    printf("ALIAS after sign=%s log0=%c\n", found->callSign, st);
+                }
+                break;
+            }
+            case 11: 
+            {
+                loadFleetA(A);
+                printf("OK SEED_A count=%d\n", A.count);
+                break;
+            }
+            case 12: 
+            {
+                loadFleetB(B);
+                printf("OK SEED_B count=%d\n", B.count);
+                break;
+            }
+            case 13: 
+            {
+                printf("B:\n");
+                printFleet(B);
+                break;
+            }
+            case 14: 
+            {
+                int before = A.count;
+                bool ok = mergeFleets(A, B);
+                if (ok) 
+                {
+                    printf("OK MERGED added=%d count=%d capacity=%d\n", A.count - before, A.count, A.capacity);
+                } 
+                else 
+                {
+                    printf("ERR MERGE_FAILED\n");
+                }
+                break;
+            }
+            case 15: 
+            {
+                int before = A.count;
+                bool ok = mergeFleets(A, A);
+                if (ok) 
+                {
+                    printf("OK MERGED added=%d count=%d capacity=%d\n", A.count - before, A.count, A.capacity);
+                } 
+                else 
+                {
+                    printf("ERR MERGE_FAILED\n");
+                }
+                break;
+            }
+            case 16: 
+            {
+                destroyFleet(A);
+                printf("OK FLEET_DESTROYED\n");
+                break;
+            }
+            case 17: 
+            {
+                reportSizes();
+                break;
+            }
+            default: 
+            {
+                printf("ERR BAD_choice\n");
+                break;
+            }
+        }
+    }
+    destroyProbe(clone);
+    destroyFleet(A);
+    destroyFleet(B);
+    printf("BYE\n");
+    return 0;
+}
