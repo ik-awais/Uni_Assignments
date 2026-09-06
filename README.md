@@ -1,159 +1,139 @@
-<!-- Muhammad Awais | Uni Assignments | FAST-NUCES Peshawar | BS Artificial Intelligence | C | C++ | Python | Java | Assembly | OOP | DSA | AI | Machine Learning | Database | OS | Networks | Compilers | Academic Projects -->
-
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=13&duration=2500&pause=800&color=7C3AED&center=true&vCenter=true&width=720&height=20&lines=%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0" alt="divider" />
+# 🎓 University Assignments
 
-# 🎓 University Assignments — Muhammad Awais
+**My semester-by-semester archive of university coursework: assignments, labs, and homework.**
 
-*A complete academic archive of assignments, lab tasks, quizzes, and projects from BS Artificial Intelligence at FAST-NUCES Peshawar.*
+![Program](https://img.shields.io/badge/Program-BS%20Software%20Engineering-7c3aed?style=flat-square)
+![University](https://img.shields.io/badge/University-FAST--NUCES%20Islamabad-00c8ff?style=flat-square)
+![Semester](https://img.shields.io/badge/Semester-3rd-06bb7a?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=flat-square)
 
-[![University](https://img.shields.io/badge/University-FAST--NUCES%20Peshawar-7c3aed?style=for-the-badge&logo=academia&logoColor=white)]()
-[![Degree](https://img.shields.io/badge/Degree-BS%20Artificial%20Intelligence-00d4ff?style=for-the-badge)]()
-[![Duration](https://img.shields.io/badge/Duration-2025%E2%80%932029-06bb7a?style=for-the-badge)]()
-[![Status](https://img.shields.io/badge/Status-Active%20%26%20Growing-brightgreen?style=flat-square)]()
-[![Author](https://img.shields.io/badge/Author-Muhammad%20Awais-orange?style=flat-square)](https://ik-awais.github.io)
-
-[![C](https://img.shields.io/badge/C-00599C?style=flat-square&logo=c&logoColor=white)]()
-[![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white)]()
-[![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)]()
-[![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white)]()
-[![Assembly](https://img.shields.io/badge/Assembly-525252?style=flat-square&logo=assemblyscript&logoColor=white)]()
-[![More](https://img.shields.io/badge/+%20More-languages-lightgrey?style=flat-square)]()
-
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=13&duration=2500&pause=800&color=7C3AED&center=true&vCenter=true&width=720&height=20&lines=%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0" alt="divider" />
+![C](https://img.shields.io/badge/C-00599C?style=flat-square&logo=c&logoColor=white)
+![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white)
+![Assembly](https://img.shields.io/badge/Assembly-525252?style=flat-square)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 
 </div>
 
-## 👤 About the Author
+---
 
-**Muhammad Awais** — AI Engineer & Managing Director @ [AI GenMat](https://aigenmat.com)
-BS Artificial Intelligence — FAST-NUCES Peshawar (2025–2029)
+## Quick Navigation
 
-🌐 [ik-awais.github.io](https://ik-awais.github.io) &nbsp;·&nbsp; 💼 [LinkedIn](https://www.linkedin.com/in/muhammad-awais-ai-engineer/) &nbsp;·&nbsp; 🐙 [GitHub](https://github.com/ik-awais) &nbsp;·&nbsp; 📧 [m.awais@aigenmat.com](mailto:m.awais@aigenmat.com)
+[About](#about) · [Academic Journey](#academic-journey) · [Repository Structure](#repository-structure) · [Semester Overview](#semester-overview) · [Languages Used](#languages-used) · [Academic Integrity](#academic-integrity) · [Related Repositories](#related-repositories) · [About Me](#about-me)
 
 ---
 
-## 📋 Table of Contents
+## About
 
-- [Purpose](#-purpose)
-- [Repository Structure](#-repository-structure)
-- [Subjects Covered](#-subjects-covered)
-- [Languages Used](#-languages-used)
-- [Note](#-note)
+Hi, I'm Muhammad Awais. This is where I keep my university coursework: assignments, lab tasks, and homework, organized by semester as I go through my degree.
 
----
+It's not a portfolio of polished projects. It's a running record of my academic work, code quality included, so it reflects where I actually was at each point in the program rather than a cleaned-up highlight reel.
 
-## 🧩 Purpose
+## Academic Journey
 
-A single, organized archive for all university coursework completed during my BS Artificial Intelligence degree at FAST-NUCES Peshawar. This includes:
+| Year | Milestone |
+| --- | --- |
+| 2025 | Started university at FAST-NUCES Peshawar in BS Artificial Intelligence |
+| 2026 | Transferred to FAST-NUCES Islamabad and moved into BS Software Engineering |
+| Now | 3rd semester, BS Software Engineering, FAST-NUCES Islamabad |
 
-- **Assignments** — graded submissions across all semesters
-- **Lab Tasks** — weekly practical work and exercises
-- **Quizzes** — timed coding and theory quiz solutions
-- **Mini Projects** — semester-end and mid-term projects
-- **Practice Problems** — additional problems solved alongside coursework
+Semesters 1 and 2 in this repository come from my time in BS Artificial Intelligence at Peshawar. Semester 3 onward reflects my current program in Islamabad.
 
-> 💻 For personal, non-academic programming practice, check out my [Python Projects](https://github.com/ik-awais/Python_Projects) and [C/C++ Projects](https://github.com/ik-awais/C_Cpp_Projects) repositories.
-> 🌐 Portfolio: [ik-awais.github.io](https://ik-awais.github.io)
+## Repository Structure
 
----
-
-## 📁 Repository Structure
-
-Each top-level folder represents a **subject or course**. Inside each course folder, work is organized by type (assignments, labs, quizzes) and/or by week or submission number.
-
-```
-Uni_Assignments/
-├── Programming_Fundamentals/     ← PF — C language basics, logic building
-├── OOP/                          ← Object-Oriented Programming — C++
-├── DSA/                          ← Data Structures & Algorithms — C++/Python
-├── AI/                           ← Artificial Intelligence — Python
-├── Machine_Learning/             ← ML algorithms, models — Python
-├── Deep_Learning/                ← Neural networks, CNNs, transformers — Python
-├── NLP/                          ← Natural Language Processing — Python
-├── Computer_Vision/              ← Image processing, OpenCV — Python
-├── Database_Systems/             ← SQL, ER diagrams, normalization
-├── Operating_Systems/            ← OS concepts, process management — C/C++
-├── Computer_Networks/            ← Networking protocols, socket programming
-├── Computer_Organization/        ← Assembly language, digital logic
-├── Compiler_Construction/        ← Lexers, parsers, grammar — C++/Python
-├── Discrete_Mathematics/         ← Proofs, sets, graph theory
-├── Linear_Algebra/               ← Matrix operations, eigenvalues
-├── Probability_Statistics/       ← Statistical methods for AI/ML
-├── Software_Engineering/         ← SDLC, design patterns, UML
-├── Human_Computer_Interaction/   ← UI/UX principles, usability
-└── ...                           ← More courses added each semester
+```text
+University-Assignments/
+├── Sem1/
+│   ├── ICT_Web/
+│   ├── Lab/
+│   └── Theory/
+├── Sem2/
+│   ├── Lab/
+│   ├── Theory/
+│   └── novelPresentation/
+├── Sem3/
+│   ├── COAL/
+│   ├── Calculus/
+│   ├── DSA/
+│   └── LA/
+└── README.md
 ```
 
-> Structure grows each semester as new courses are added.
+## Semester Overview
 
----
+Click a semester to expand it.
 
-## 📚 Subjects Covered
+<details>
+<summary><strong>Semester 1, FAST-NUCES Peshawar</strong></summary>
+<br>
 
-| Subject | Language(s) | Type |
-|---|---|---|
-| Programming Fundamentals | C | Assignments, Labs, Quizzes |
-| Object-Oriented Programming | C++ | Assignments, Labs, Projects |
-| Data Structures & Algorithms | C++, Python | Assignments, Labs, Quizzes |
-| Artificial Intelligence | Python | Assignments, Projects |
-| Machine Learning | Python | Assignments, Labs, Projects |
-| Deep Learning | Python | Assignments, Projects |
-| Natural Language Processing | Python | Assignments, Projects |
-| Computer Vision | Python, OpenCV | Assignments, Labs, Projects |
-| Database Systems | SQL | Assignments, Labs |
-| Operating Systems | C, C++ | Assignments, Labs |
-| Computer Networks | C, Python | Assignments, Labs |
-| Computer Organization & Assembly | Assembly, C | Assignments, Labs |
-| Compiler Construction | C++, Python | Assignments, Projects |
-| Discrete Mathematics | — | Theory, Problem Sets |
-| Linear Algebra | Python, MATLAB | Assignments |
-| Probability & Statistics | Python | Assignments, Problem Sets |
-| Software Engineering | — | Diagrams, Reports, Case Studies |
-| Human Computer Interaction | — | Reports, Prototypes |
+| Folder | What's inside | Language |
+| --- | --- | --- |
+| ICT_Web | A basic web page I built with HTML, CSS, and JS | HTML, CSS, JavaScript |
+| Lab / Theory | Introductory programming exercises | C |
 
----
+</details>
 
-## 💻 Languages Used
+<details>
+<summary><strong>Semester 2, FAST-NUCES Peshawar</strong></summary>
+<br>
 
-| Language | Primary Use |
-|---|---|
-| **C** | Programming Fundamentals, OS, Low-level systems |
-| **C++** | OOP, DSA, Compiler Construction |
-| **Python** | AI, ML, Deep Learning, NLP, Computer Vision |
-| **Java** | Select OOP and Software Engineering tasks |
-| **Assembly** | Computer Organization & Architecture |
-| **SQL** | Database Systems |
-| **Bash** | OS and scripting tasks |
-| **+ More** | Added as new courses require |
+| Folder | What's inside | Language |
+| --- | --- | --- |
+| Lab / Theory | Object-oriented programming: classes, inheritance, polymorphism, association | C++ |
+| novelPresentation | A presentation project built as an HTML slideshow | HTML |
 
----
+</details>
 
-## 📝 Note
+<details>
+<summary><strong>Semester 3, FAST-NUCES Islamabad</strong></summary>
+<br>
 
-This repository is maintained purely for **academic documentation and personal reference**.
+| Folder | What's inside | Language |
+| --- | --- | --- |
+| COAL | Assembly language lab exercises | x86 Assembly |
+| Calculus | Calculus homework, done in Jupyter notebooks | Python |
+| DSA | Data structures and algorithms, labs and theory | C++ |
+| LA | Linear algebra homework | Python |
 
-- Code quality varies — early semester work reflects a learning curve, later work reflects growth.
-- Some assignments may have multiple solution attempts showing progression.
-- All work is original and submitted by **Muhammad Awais**, BS AI student at FAST-NUCES Peshawar.
+</details>
 
-> ⚠️ If you are a FAST-NUCES student, please use this repository for **reference and learning only** — do not submit any code as your own.
+## Languages Used
 
----
+| Language | Where I used it |
+| --- | --- |
+| C | Sem1 Lab and Theory |
+| C++ | Sem2 (OOP), Sem3 DSA |
+| Assembly | Sem3 COAL |
+| Python | Sem3 Calculus, Sem3 LA |
+| HTML / CSS / JS | Sem1 ICT_Web, Sem2 novelPresentation |
 
-## 🏷️ Keywords
+Lab reports and submission write-ups appear as PDF and DOCX files where that's how I originally submitted them.
 
-`Muhammad Awais` `FAST-NUCES Peshawar` `BS Artificial Intelligence` `University Assignments` `C` `C++` `Python` `Java` `Assembly` `OOP` `DSA` `AI` `Machine Learning` `Deep Learning` `NLP` `Computer Vision` `Database Systems` `Operating Systems` `Computer Networks` `Compiler Construction` `Academic Projects` `AI GenMat`
+## Academic Integrity
+
+I keep this repository public for my own reference and to document how my work has progressed over time. If you're a current student, please use it to learn from, not to copy or submit as your own.
+
+## Related Repositories
+
+- [Python_Projects](https://github.com/ik-awais/Python_Projects), my Python work outside coursework
+- [C_Cpp_Practice](https://github.com/ik-awais/C_Cpp_Practice), C and C++ practice outside coursework
+- [Octagon](https://github.com/ik-awais/Octagon), a collaborative learning repo with classmates
+- [Portfolio](https://ik-awais.github.io), my personal site
+
+## About Me
+
+**Muhammad Awais**
+AI Developer, Managing Director at [AI GenMat](https://aigenmat.com)
+BS Software Engineering, FAST-NUCES Islamabad
+
+[Portfolio](https://ik-awais.github.io) · [LinkedIn](https://www.linkedin.com/in/muhammad-awais-ai-engineer/) · [GitHub](https://github.com/ik-awais) · [m.awais@aigenmat.com](mailto:m.awais@aigenmat.com)
 
 ---
 
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=13&duration=2500&pause=800&color=7C3AED&center=true&vCenter=true&width=720&height=20&lines=%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0+%E2%96%B0" alt="divider" />
-
-**[Muhammad Awais](https://ik-awais.github.io)** &nbsp;|&nbsp; BS Artificial Intelligence &nbsp;|&nbsp; FAST-NUCES Peshawar &nbsp;|&nbsp; 🟢 Active & Growing
-
-[Portfolio](https://ik-awais.github.io) &nbsp;·&nbsp; [LinkedIn](https://www.linkedin.com/in/muhammad-awais-ai-engineer/) &nbsp;·&nbsp; [GitHub](https://github.com/ik-awais)
+*Updated as each semester wraps up.*
 
 </div>
